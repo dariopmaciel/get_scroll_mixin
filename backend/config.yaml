@@ -14,3 +14,6 @@ database: database.json
 #        method: post
 #      - /products/{*}:
 #        method: get
+
+
+# http://localhost:8080/users?page=1&limit=10
