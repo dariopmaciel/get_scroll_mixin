@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_scroll_mixin/pages/user_list_controller.dart';
+import 'package:get_scroll_mixin/pages/user_list_page.dart';
 import 'package:get_scroll_mixin/repositories/user_repository.dart';
 
 void main() {
@@ -28,7 +30,13 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
         useMaterial3: true,
       ),
-      getPages: [],
+      getPages: [
+        GetPage(
+          name: '/',
+          page: () => const UserListPage(),
+          binding: BindingsBuilder.put(() => UserListController(),)
+        ),
+      ],
     );
   }
 }
