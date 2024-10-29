@@ -11,12 +11,19 @@ class UserRepository {
   UserRepository({
     required Dio dio,
   }) : _dio = dio;
-
-  Future<List<UserModel>> getUsers() async {
+//! eniando do getUser para enviar para o backend
+  // Future<List<UserModel>> getUsers() async {
+  Future<List<UserModel>> getUsers(int page, int limit) async {
     try {
-      final result = await _dio.get('/users');
+      //!enviado por aqui o backend
+      final result = await _dio.get('/users', queryParameters: {
+        'page': page,
+        'limit': limit,
+      });
 
-      return result.data.map<UserModel>((user) => UserModel.fromMap(user)).toList();
+      return result.data
+          .map<UserModel>((user) => UserModel.fromMap(user))
+          .toList();
     } on DioException catch (e, s) {
       log('Erro ao buscar usuarios', error: e, stackTrace: s);
       throw Exception();

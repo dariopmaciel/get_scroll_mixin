@@ -6,8 +6,9 @@ class UserListController extends GetxController
     with StateMixin<List<UserModel>> {
   final UserRepository _userRepository;
   //!Ao criar limitador inicio e limitador de página é necessario enviar e receber estes limites
+  //! Enviar para o backend par ao getUser
   final _page = 1.obs;
-  final limit = 10;
+  final _limit = 10;
 
   UserListController({
     required UserRepository userRepository,
@@ -20,11 +21,11 @@ class UserListController extends GetxController
     _findUser();
     super.onReady();
   }
-//! seria trazer para ca????
+
 
   Future<void> _findUser() async {
-    //buscar dados e alterar status
-    final result = await _userRepository.getUsers();
+    //!passando por aqui 
+    final result = await _userRepository.getUsers(_page.value, _limit);
     //alterar estado
     change(result, status: RxStatus.success());
   }
