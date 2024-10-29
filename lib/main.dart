@@ -26,14 +26,11 @@ class MyApp extends StatelessWidget {
           );
         },
       ),
-      theme: ThemeData(
-        primaryColor: Colors.blue,
-        useMaterial3: false,
-      ),
+      theme: ThemeData(primaryColor: Colors.blue, useMaterial3: false),
       getPages: [
         GetPage(
             name: '/',
-            page: () =>  UserListPage(),
+            page: () => UserListPage(),
             binding: BindingsBuilder.put(
               () => UserListController(userRepository: Get.find()),
             )),

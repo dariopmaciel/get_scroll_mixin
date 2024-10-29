@@ -4,8 +4,10 @@ import 'package:get_scroll_mixin/repositories/user_repository.dart';
 
 class UserListController extends GetxController
     with StateMixin<List<UserModel>> {
-      
   final UserRepository _userRepository;
+  //!Ao criar limitador inicio e limitador de página é necessario enviar e receber estes limites
+  final _page = 1.obs;
+  final limit = 10;
 
   UserListController({
     required UserRepository userRepository,
@@ -18,6 +20,7 @@ class UserListController extends GetxController
     _findUser();
     super.onReady();
   }
+//! seria trazer para ca????
 
   Future<void> _findUser() async {
     //buscar dados e alterar status
