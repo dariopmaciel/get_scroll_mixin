@@ -12,11 +12,11 @@ class UserRepository {
     required Dio dio,
   }) : _dio = dio;
 
-  Future<List<UserModel>> getUser() async {
+  Future<List<UserModel>> getUsers() async {
     try {
       final result = await _dio.get('/users');
 
-      return result.data.map((user) => UserModel.fromMap(user)).toList();
+      return result.data.map<UserModel>((user) => UserModel.fromMap(user)).toList();
     } on DioException catch (e, s) {
       log('Erro ao buscar usuarios', error: e, stackTrace: s);
       throw Exception();
