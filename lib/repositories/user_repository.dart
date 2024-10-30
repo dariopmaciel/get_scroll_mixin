@@ -15,6 +15,9 @@ class UserRepository {
   // Future<List<UserModel>> getUsers() async {
   Future<List<UserModel>> getUsers(int page, int limit) async {
     try {
+      //simulação de internet ruim no carregamento de página
+      await Future.delayed(const Duration(seconds: 2));
+      print('Buscando página>>> $page');
       //!enviado por aqui o backend
       final result = await _dio.get('/users', queryParameters: {
         'page': page,

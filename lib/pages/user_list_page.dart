@@ -9,11 +9,14 @@ class UserListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('User List'),
-      ),
+      appBar: AppBar(title: const Text('User List')),
+      // floatingActionButton:
+      //     FloatingActionButton(onPressed: () => controller.atualizar()),
       body: controller.obx((state) {
+        //!link do 'onEndScroll do mixinScroll' ao listview.builder
         return ListView.builder(
+          //*link
+          controller: controller.scroll,
           itemCount: state?.length ?? 0,
           itemBuilder: (context, index) {
             final user = state?[index];
