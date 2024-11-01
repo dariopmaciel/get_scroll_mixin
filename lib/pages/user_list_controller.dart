@@ -5,15 +5,18 @@ import 'package:get_scroll_mixin/repositories/user_repository.dart';
 class UserListController extends GetxController
     with StateMixin<List<UserModel>>, ScrollMixin {
   final UserRepository _userRepository;
+  late final Worker workerPage;
   //!Ao criar limitador 'inicio' e limitador de 'página' é necessario enviar e receber estes limites
   //! Enviar para o backend para o getUser
   final _page = 1.obs;
   final _limit = 12;
-  late final Worker workerPage;
+  final _loading = false.obs;
 
   UserListController({
     required UserRepository userRepository,
   }) : _userRepository = userRepository;
+
+  bool get isLoading => _loading.value;
 
 //!para ficar escutando as ações do usuario énecessario um worker => onInit
   @override
@@ -44,6 +47,8 @@ class UserListController extends GetxController
   }
 
   Future<void> _findUser() async {
+    //estou buscando dados
+    _loading(true);
     //!passando por aqui
     final result = await _userRepository.getUsers(_page.value, _limit);
     //! para add a pag inicial nova pagina, foi criado o 'stateResult' e add a ele o state result
@@ -54,6 +59,8 @@ class UserListController extends GetxController
     //alterar estado
     // change(result, status: RxStatus.success());
     change(stateResult, status: RxStatus.success());
+    //terminei de buscar dados e conclui;
+    _loading(false);
   }
 
   @override
@@ -65,6 +72,9 @@ class UserListController extends GetxController
 
   @override
   Future<void> onEndScroll() async {
-    _page.value++;
+    //se o carregamento for falso DAI carrega e conta pagina
+    if (!isLoading) {
+      _page.value++;
+    }
   }
 }
